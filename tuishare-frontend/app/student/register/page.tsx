@@ -40,73 +40,78 @@ export default function StudentRegister() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground font-sans">
+    <div className="min-h-screen flex flex-col bg-background text-foreground font-sans pt-20">
       <Navbar />
-      <div className="flex-1 flex flex-col items-center justify-center p-8">
+      <div className="flex-1 flex flex-col items-center justify-center px-4 py-8">
         {toast && <Toast message={toast.message} type={toast.type} />}
-        <h2 className="text-2xl font-bold mb-4">Student Registration</h2>
-        {loading ? (
-          <Spinner />
-        ) : submitted ? (
-          <div className="bg-green-100 text-green-800 p-4 rounded mb-4">
-            Registration submitted! We will contact you soon.
-          </div>
-        ) : (
-          <form
-            className="w-full max-w-md flex flex-col gap-4 bg-white p-6 rounded-lg shadow"
-            onSubmit={handleSubmit}
+        <div className="w-full max-w-lg bg-white rounded-lg shadow-lg p-8">
+          <h2 className="text-3xl font-bold mb-4 text-center text-green-600">
+            Student Registration
+          </h2>
+          <p className="text-gray-600 mb-6 text-center">
+            Register to receive tuition support, manage your virtual card, and
+            access educational resources with Tuishare Plus.
+          </p>
+          {loading ? (
+            <Spinner />
+          ) : submitted ? (
+            <div className="bg-green-100 text-green-800 p-4 rounded mb-4 text-center">
+              Registration submitted! We will contact you soon.
+            </div>
+          ) : (
+            <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+              <input
+                type="text"
+                name="fullName"
+                placeholder="Full Name"
+                className="border p-3 rounded w-full"
+                value={form.fullName}
+                onChange={handleChange}
+                required
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="Email Address"
+                className="border p-3 rounded w-full"
+                value={form.email}
+                onChange={handleChange}
+                required
+              />
+              <input
+                type="text"
+                name="schoolId"
+                placeholder="School ID"
+                className="border p-3 rounded w-full"
+                value={form.schoolId}
+                onChange={handleChange}
+                required
+              />
+              <input
+                type="text"
+                name="schoolName"
+                placeholder="School Name"
+                className="border p-3 rounded w-full"
+                value={form.schoolName}
+                onChange={handleChange}
+                required
+              />
+              <button
+                type="submit"
+                className="py-3 px-6 rounded bg-green-600 text-white font-semibold hover:bg-green-700 transition w-full"
+                disabled={loading}
+              >
+                {loading ? "Submitting..." : "Register"}
+              </button>
+            </form>
+          )}
+          <Link
+            href="/student/login"
+            className="mt-4 text-green-600 hover:underline text-center block"
           >
-            <input
-              type="text"
-              name="fullName"
-              placeholder="Full Name"
-              className="border p-3 rounded"
-              value={form.fullName}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="email"
-              name="email"
-              placeholder="Email Address"
-              className="border p-3 rounded"
-              value={form.email}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="text"
-              name="schoolId"
-              placeholder="School ID"
-              className="border p-3 rounded"
-              value={form.schoolId}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="text"
-              name="schoolName"
-              placeholder="School Name"
-              className="border p-3 rounded"
-              value={form.schoolName}
-              onChange={handleChange}
-              required
-            />
-            <button
-              type="submit"
-              className="py-3 px-6 rounded bg-green-600 text-white font-semibold hover:bg-green-700 transition"
-              disabled={loading}
-            >
-              {loading ? "Submitting..." : "Register"}
-            </button>
-          </form>
-        )}
-        <Link
-          href="/student/login"
-          className="mt-4 text-green-600 hover:underline text-center"
-        >
-          Already have an account? Login
-        </Link>
+            Already have an account? Login
+          </Link>
+        </div>
       </div>
     </div>
   );

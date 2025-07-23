@@ -39,64 +39,70 @@ export default function SupporterRegister() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground font-sans">
+    <div className="min-h-screen flex flex-col bg-background text-foreground font-sans pt-20">
       <Navbar />
-      <div className="flex-1 flex flex-col items-center justify-center p-8">
+      <div className="flex-1 flex flex-col items-center justify-center px-4 py-8">
         {toast && <Toast message={toast.message} type={toast.type} />}
-        <h2 className="text-2xl font-bold mb-4">Supporter Registration</h2>
-        {loading ? (
-          <Spinner />
-        ) : submitted ? (
-          <div className="bg-green-100 text-green-800 p-4 rounded mb-4">
-            Registration submitted! We will contact you soon.
-          </div>
-        ) : (
-          <form
-            className="w-full max-w-md flex flex-col gap-4 bg-white p-6 rounded-lg shadow"
-            onSubmit={handleSubmit}
+        <div className="w-full max-w-lg bg-white rounded-lg shadow-lg p-8">
+          <h2 className="text-3xl font-bold mb-4 text-center text-blue-600">
+            Supporter Registration
+          </h2>
+          <p className="text-gray-600 mb-6 text-center">
+            Register as a supporter (parent, sponsor, or guardian) to help
+            students pay tuition, track your impact, and receive digital proof
+            of your contributions.
+          </p>
+          {loading ? (
+            <Spinner />
+          ) : submitted ? (
+            <div className="bg-green-100 text-green-800 p-4 rounded mb-4 text-center">
+              Registration submitted! We will contact you soon.
+            </div>
+          ) : (
+            <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+              <input
+                type="text"
+                name="name"
+                placeholder="Full Name"
+                className="border p-3 rounded w-full"
+                value={form.name}
+                onChange={handleChange}
+                required
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="Email Address"
+                className="border p-3 rounded w-full"
+                value={form.email}
+                onChange={handleChange}
+                required
+              />
+              <input
+                type="text"
+                name="country"
+                placeholder="Country"
+                className="border p-3 rounded w-full"
+                value={form.country}
+                onChange={handleChange}
+                required
+              />
+              <button
+                type="submit"
+                className="py-3 px-6 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700 transition w-full"
+                disabled={loading}
+              >
+                {loading ? "Submitting..." : "Register"}
+              </button>
+            </form>
+          )}
+          <Link
+            href="/supporter/login"
+            className="mt-4 text-blue-600 hover:underline text-center block"
           >
-            <input
-              type="text"
-              name="name"
-              placeholder="Full Name"
-              className="border p-3 rounded"
-              value={form.name}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="email"
-              name="email"
-              placeholder="Email Address"
-              className="border p-3 rounded"
-              value={form.email}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="text"
-              name="country"
-              placeholder="Country"
-              className="border p-3 rounded"
-              value={form.country}
-              onChange={handleChange}
-              required
-            />
-            <button
-              type="submit"
-              className="py-3 px-6 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
-              disabled={loading}
-            >
-              {loading ? "Submitting..." : "Register"}
-            </button>
-          </form>
-        )}
-        <Link
-          href="/supporter/login"
-          className="mt-4 text-blue-600 hover:underline text-center"
-        >
-          Already have an account? Login
-        </Link>
+            Already have an account? Login
+          </Link>
+        </div>
       </div>
     </div>
   );
