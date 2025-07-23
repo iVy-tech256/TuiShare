@@ -67,6 +67,9 @@ export default function Home() {
           </div>
         </div>
       </main>
+      <footer className="mt-12 text-sm text-center text-gray-500">
+        &copy; {new Date().getFullYear()} Tuishare Plus. All rights reserved.
+      </footer>
     </div>
   );
 }

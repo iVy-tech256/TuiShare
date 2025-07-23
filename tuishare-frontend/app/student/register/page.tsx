@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Spinner from "@/components/Spinner";
 import Toast from "@/components/Toast";
@@ -40,72 +39,68 @@ export default function StudentRegister() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground font-sans p-8">
+    <div className="min-h-screen flex flex-col bg-background text-foreground font-sans">
       <Navbar />
-      {toast && <Toast message={toast.message} type={toast.type} />}
-      <h2 className="text-2xl font-bold mb-4">Student Registration</h2>
-      {loading ? (
-        <Spinner />
-      ) : submitted ? (
-        <div className="bg-green-100 text-green-800 p-4 rounded mb-4">
-          Registration submitted! We will contact you soon.
-        </div>
-      ) : (
-        <form
-          className="w-full max-w-md flex flex-col gap-4 bg-white p-6 rounded-lg shadow"
-          onSubmit={handleSubmit}
-        >
-          <input
-            type="text"
-            name="fullName"
-            placeholder="Full Name"
-            className="border p-3 rounded"
-            value={form.fullName}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email Address"
-            className="border p-3 rounded"
-            value={form.email}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="text"
-            name="schoolId"
-            placeholder="School ID"
-            className="border p-3 rounded"
-            value={form.schoolId}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="text"
-            name="schoolName"
-            placeholder="School Name"
-            className="border p-3 rounded"
-            value={form.schoolName}
-            onChange={handleChange}
-            required
-          />
-          <button
-            type="submit"
-            className="py-3 px-6 rounded bg-green-600 text-white font-semibold hover:bg-green-700 transition"
-            disabled={loading}
+      <div className="flex-1 flex flex-col items-center justify-center p-8">
+        {toast && <Toast message={toast.message} type={toast.type} />}
+        <h2 className="text-2xl font-bold mb-4">Student Registration</h2>
+        {loading ? (
+          <Spinner />
+        ) : submitted ? (
+          <div className="bg-green-100 text-green-800 p-4 rounded mb-4">
+            Registration submitted! We will contact you soon.
+          </div>
+        ) : (
+          <form
+            className="w-full max-w-md flex flex-col gap-4 bg-white p-6 rounded-lg shadow"
+            onSubmit={handleSubmit}
           >
-            {loading ? "Submitting..." : "Register"}
-          </button>
-        </form>
-      )}
-      <Link
-        href="/student/login"
-        className="mt-4 text-green-600 hover:underline text-center"
-      >
-        Already have an account? Login
-      </Link>
+            <input
+              type="text"
+              name="fullName"
+              placeholder="Full Name"
+              className="border p-3 rounded"
+              value={form.fullName}
+              onChange={handleChange}
+              required
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email Address"
+              className="border p-3 rounded"
+              value={form.email}
+              onChange={handleChange}
+              required
+            />
+            <input
+              type="text"
+              name="schoolId"
+              placeholder="School ID"
+              className="border p-3 rounded"
+              value={form.schoolId}
+              onChange={handleChange}
+              required
+            />
+            <input
+              type="text"
+              name="schoolName"
+              placeholder="School Name"
+              className="border p-3 rounded"
+              value={form.schoolName}
+              onChange={handleChange}
+              required
+            />
+            <button
+              type="submit"
+              className="py-3 px-6 rounded bg-green-600 text-white font-semibold hover:bg-green-700 transition"
+              disabled={loading}
+            >
+              {loading ? "Submitting..." : "Register"}
+            </button>
+          </form>
+        )}
+      </div>
     </div>
   );
 }
