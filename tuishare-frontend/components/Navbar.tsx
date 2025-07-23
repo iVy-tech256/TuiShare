@@ -11,22 +11,13 @@ export default function Navbar() {
           Home
         </Link>
         <Link href="/supporter/register" className="hover:underline">
-          Supporter Register
-        </Link>
-        <Link href="/supporter/login" className="hover:underline">
-          Supporter Login
+          Supporter
         </Link>
         <Link href="/student/register" className="hover:underline">
-          Student Register
-        </Link>
-        <Link href="/student/login" className="hover:underline">
-          Student Login
+          Student
         </Link>
         <Link href="/school/register" className="hover:underline">
-          School Register
-        </Link>
-        <Link href="/school/login" className="hover:underline">
-          School Login
+          School
         </Link>
       </div>
     </nav>
