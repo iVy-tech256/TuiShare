@@ -3,6 +3,7 @@ import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Spinner from "@/components/Spinner";
 import Toast from "@/components/Toast";
+import Link from "next/link";
 
 export default function SchoolRegister() {
   const [form, setForm] = useState({
@@ -100,6 +101,12 @@ export default function SchoolRegister() {
             </button>
           </form>
         )}
+        <Link
+          href="/school/login"
+          className="mt-4 text-yellow-600 hover:underline text-center"
+        >
+          Already have an account? Login
+        </Link>
       </div>
     </div>
   );

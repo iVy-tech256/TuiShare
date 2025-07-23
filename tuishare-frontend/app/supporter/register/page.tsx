@@ -3,6 +3,7 @@ import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Spinner from "@/components/Spinner";
 import Toast from "@/components/Toast";
+import Link from "next/link";
 
 export default function SupporterRegister() {
   const [form, setForm] = useState({
@@ -90,6 +91,12 @@ export default function SupporterRegister() {
             </button>
           </form>
         )}
+        <Link
+          href="/supporter/login"
+          className="mt-4 text-blue-600 hover:underline text-center"
+        >
+          Already have an account? Login
+        </Link>
       </div>
     </div>
   );
