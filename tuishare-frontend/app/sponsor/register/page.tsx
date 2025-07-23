@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 
 export default function SponsorRegister() {
   const [form, setForm] = useState({
@@ -15,12 +16,17 @@ export default function SponsorRegister() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    // TODO: Send form data to backend API
     setSubmitted(true);
   }
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground font-sans p-8">
+      <Link
+        href="/"
+        className="mb-6 text-blue-600 hover:underline font-semibold"
+      >
+        ← Back to Home
+      </Link>
       <h2 className="text-2xl font-bold mb-4">Sponsor Registration</h2>
       {submitted ? (
         <div className="bg-green-100 text-green-800 p-4 rounded mb-4">
