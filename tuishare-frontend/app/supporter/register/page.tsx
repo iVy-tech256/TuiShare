@@ -69,6 +69,12 @@ export default function SupporterRegister() {
           </button>
         </form>
       )}
+      <Link
+        href="/supporter/login"
+        className="mt-4 text-blue-600 hover:underline text-center"
+      >
+        Already have an account? Login
+      </Link>
     </div>
   );
 }
