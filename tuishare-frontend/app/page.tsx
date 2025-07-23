@@ -12,18 +12,19 @@ export default function Home() {
           height={64}
         />
         <h1 className="text-4xl font-bold mt-4 mb-2">Tuishare Plus</h1>
-        <p className="text-lg text-center max-w-xl">
-          Web3-powered tuition payment platform connecting sponsors to African
-          students. Pay tuition and school expenses using Bitcoin (BTC) and USDT
-          stablecoins.
+        <p className="text-lg text-center max-w-xl mb-4">
+          Seamless, secure tuition payments for African students. Sponsors,
+          parents, and guardians can pay school fees in USDT or Bitcoin,
+          instantly converted to UGX and sent directly to verified schools or
+          student accounts.
         </p>
       </header>
       <main className="flex flex-col gap-6 items-center w-full max-w-md">
         <Link
-          href="/sponsor/register"
+          href="/supporter/register"
           className="w-full py-3 px-6 rounded-lg bg-blue-600 text-white font-semibold text-center hover:bg-blue-700 transition"
         >
-          Sponsor a Student
+          Sponsor / Parent / Guardian Registration
         </Link>
         <Link
           href="/student/register"

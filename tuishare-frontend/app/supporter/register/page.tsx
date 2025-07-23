@@ -2,9 +2,9 @@
 import { useState } from "react";
 import Link from "next/link";
 
-export default function SponsorRegister() {
+export default function SupporterRegister() {
   const [form, setForm] = useState({
-    fullName: "",
+    name: "",
     email: "",
     country: "",
   });
@@ -27,7 +27,7 @@ export default function SponsorRegister() {
       >
         ← Back to Home
       </Link>
-      <h2 className="text-2xl font-bold mb-4">Sponsor Registration</h2>
+      <h2 className="text-2xl font-bold mb-4">Supporter Registration</h2>
       {submitted ? (
         <div className="bg-green-100 text-green-800 p-4 rounded mb-4">
           Registration submitted! We will contact you soon.
@@ -39,10 +39,10 @@ export default function SponsorRegister() {
         >
           <input
             type="text"
-            name="fullName"
+            name="name"
             placeholder="Full Name"
             className="border p-3 rounded"
-            value={form.fullName}
+            value={form.name}
             onChange={handleChange}
             required
           />
