@@ -1,9 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
+import Navbar from "@/components/Navbar";
 
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground font-sans p-8">
+      <Navbar />
       <header className="mb-8 flex flex-col items-center">
         <Image
           src="/file.svg"

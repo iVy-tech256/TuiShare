@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import Navbar from "@/components/Navbar";
 
 export default function SchoolRegister() {
   const [form, setForm] = useState({
@@ -23,6 +24,7 @@ export default function SchoolRegister() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground font-sans p-8">
+      <Navbar />
       <Link
         href="/"
         className="mb-6 text-blue-600 hover:underline font-semibold"
