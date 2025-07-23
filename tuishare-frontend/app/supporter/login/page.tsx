@@ -1,48 +1,46 @@
 "use client";
 import { useState } from "react";
-import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import Spinner from "@/components/Spinner";
+import Toast from "@/components/Toast";
 
-export default function SupporterRegister() {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    country: "",
-  });
-  const [submitted, setSubmitted] = useState(false);
+export default function SupporterLogin() {
+  const [form, setForm] = useState({ email: "", password: "" });
+  const [loading, setLoading] = useState(false);
+  const [toast, setToast] = useState<{
+    message: string;
+    type?: "success" | "error";
+  } | null>(null);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    setToast(null);
+
+    // Simulate login API call
+    setTimeout(() => {
+      setLoading(false);
+      setToast({ message: "Login successful!", type: "success" });
+      // TODO: Redirect to dashboard after successful login
+    }, 1200);
   }
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground font-sans p-8">
       <Navbar />
-
-      <h2 className="text-2xl font-bold mb-4">Supporter Registration</h2>
-      {submitted ? (
-        <div className="bg-green-100 text-green-800 p-4 rounded mb-4">
-          Registration submitted! We will contact you soon.
-        </div>
+      {toast && <Toast message={toast.message} type={toast.type} />}
+      <h2 className="text-2xl font-bold mb-4">Supporter Login</h2>
+      {loading ? (
+        <Spinner />
       ) : (
         <form
           className="w-full max-w-md flex flex-col gap-4 bg-white p-6 rounded-lg shadow"
           onSubmit={handleSubmit}
         >
-          <input
-            type="text"
-            name="name"
-            placeholder="Full Name"
-            className="border p-3 rounded"
-            value={form.name}
-            onChange={handleChange}
-            required
-          />
           <input
             type="email"
             name="email"
@@ -53,19 +51,20 @@ export default function SupporterRegister() {
             required
           />
           <input
-            type="text"
-            name="country"
-            placeholder="Country"
+            type="password"
+            name="password"
+            placeholder="Password"
             className="border p-3 rounded"
-            value={form.country}
+            value={form.password}
             onChange={handleChange}
             required
           />
           <button
             type="submit"
             className="py-3 px-6 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
+            disabled={loading}
           >
-            Register
+            {loading ? "Logging in..." : "Login"}
           </button>
         </form>
       )}
