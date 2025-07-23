@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -18,24 +19,24 @@ export default function Home() {
         </p>
       </header>
       <main className="flex flex-col gap-6 items-center w-full max-w-md">
-        <a
-          href="#"
+        <Link
+          href="/sponsor/register"
           className="w-full py-3 px-6 rounded-lg bg-blue-600 text-white font-semibold text-center hover:bg-blue-700 transition"
         >
           Sponsor a Student
-        </a>
-        <a
-          href="#"
+        </Link>
+        <Link
+          href="/student/register"
           className="w-full py-3 px-6 rounded-lg bg-green-600 text-white font-semibold text-center hover:bg-green-700 transition"
         >
           Student Registration
-        </a>
-        <a
-          href="#"
+        </Link>
+        <Link
+          href="/school/register"
           className="w-full py-3 px-6 rounded-lg bg-yellow-500 text-white font-semibold text-center hover:bg-yellow-600 transition"
         >
           School Registration
-        </a>
+        </Link>
       </main>
       <footer className="mt-12 text-sm text-center text-gray-500">
         &copy; {new Date().getFullYear()} Tuishare Plus. All rights reserved.
