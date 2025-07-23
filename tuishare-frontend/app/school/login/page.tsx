@@ -30,44 +30,48 @@ export default function SchoolLogin() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground font-sans p-8">
-      <Navbar />
-      {toast && <Toast message={toast.message} type={toast.type} />}
-      <h2 className="text-2xl font-bold mb-4">School Login</h2>
-      {loading ? (
-        <Spinner />
-      ) : (
-        <form
-          className="w-full max-w-md flex flex-col gap-4 bg-white p-6 rounded-lg shadow"
-          onSubmit={handleSubmit}
-        >
-          <input
-            type="email"
-            name="email"
-            placeholder="Email Address"
-            className="border p-3 rounded"
-            value={form.email}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            className="border p-3 rounded"
-            value={form.password}
-            onChange={handleChange}
-            required
-          />
-          <button
-            type="submit"
-            className="py-3 px-6 rounded bg-yellow-500 text-white font-semibold hover:bg-yellow-600 transition"
-            disabled={loading}
+    <div className="min-h-screen flex flex-col bg-background text-foreground font-sans">
+      <div className="sticky top-0 z-50">
+        <Navbar />
+      </div>
+      <div className="flex-1 flex flex-col items-center justify-center p-8">
+        {toast && <Toast message={toast.message} type={toast.type} />}
+        <h2 className="text-2xl font-bold mb-4">School Login</h2>
+        {loading ? (
+          <Spinner />
+        ) : (
+          <form
+            className="w-full max-w-md flex flex-col gap-4 bg-white p-6 rounded-lg shadow"
+            onSubmit={handleSubmit}
           >
-            {loading ? "Logging in..." : "Login"}
-          </button>
-        </form>
-      )}
+            <input
+              type="email"
+              name="email"
+              placeholder="Email Address"
+              className="border p-3 rounded"
+              value={form.email}
+              onChange={handleChange}
+              required
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              className="border p-3 rounded"
+              value={form.password}
+              onChange={handleChange}
+              required
+            />
+            <button
+              type="submit"
+              className="py-3 px-6 rounded bg-yellow-500 text-white font-semibold hover:bg-yellow-600 transition"
+              disabled={loading}
+            >
+              {loading ? "Logging in..." : "Login"}
+            </button>
+          </form>
+        )}
+      </div>
     </div>
   );
 }
