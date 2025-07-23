@@ -25,12 +25,7 @@ export default function SchoolRegister() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground font-sans p-8">
       <Navbar />
-      <Link
-        href="/"
-        className="mb-6 text-blue-600 hover:underline font-semibold"
-      >
-        ← Back to Home
-      </Link>
+
       <h2 className="text-2xl font-bold mb-4">School Registration</h2>
       {submitted ? (
         <div className="bg-green-100 text-green-800 p-4 rounded mb-4">

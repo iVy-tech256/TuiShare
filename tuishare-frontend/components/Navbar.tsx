@@ -7,6 +7,9 @@ export default function Navbar() {
         Tuishare Plus
       </Link>
       <div className="flex gap-6">
+        <Link href="/" className="hover:underline">
+          Home
+        </Link>
         <Link href="/supporter/register" className="hover:underline">
           Supporter
         </Link>
