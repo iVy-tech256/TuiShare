@@ -3,6 +3,7 @@ import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Spinner from "@/components/Spinner";
 import Toast from "@/components/Toast";
+import Link from "next/link";
 
 export default function SchoolLogin() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -36,41 +37,48 @@ export default function SchoolLogin() {
       </div>
       <div className="flex-1 flex flex-col items-center justify-center p-8">
         {toast && <Toast message={toast.message} type={toast.type} />}
-        <h2 className="text-2xl font-bold mb-4">School Login</h2>
-        {loading ? (
-          <Spinner />
-        ) : (
-          <form
-            className="w-full max-w-md flex flex-col gap-4 bg-white p-6 rounded-lg shadow"
-            onSubmit={handleSubmit}
+        <div className="w-full max-w-xl bg-white rounded-lg shadow p-12">
+          <h2 className="text-3xl font-bold mb-4 text-center text-yellow-600">
+            School Login
+          </h2>
+          {loading ? (
+            <Spinner />
+          ) : (
+            <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+              <input
+                type="email"
+                name="email"
+                placeholder="Email Address"
+                className="border p-3 rounded w-full"
+                value={form.email}
+                onChange={handleChange}
+                required
+              />
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                className="border p-3 rounded w-full"
+                value={form.password}
+                onChange={handleChange}
+                required
+              />
+              <button
+                type="submit"
+                className="py-3 px-6 rounded bg-yellow-500 text-white font-semibold hover:bg-yellow-600 transition w-full"
+                disabled={loading}
+              >
+                {loading ? "Logging in..." : "Login"}
+              </button>
+            </form>
+          )}
+          <Link
+            href="/school/register"
+            className="mt-4 text-yellow-600 hover:underline text-center block"
           >
-            <input
-              type="email"
-              name="email"
-              placeholder="Email Address"
-              className="border p-3 rounded"
-              value={form.email}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              className="border p-3 rounded"
-              value={form.password}
-              onChange={handleChange}
-              required
-            />
-            <button
-              type="submit"
-              className="py-3 px-6 rounded bg-yellow-500 text-white font-semibold hover:bg-yellow-600 transition"
-              disabled={loading}
-            >
-              {loading ? "Logging in..." : "Login"}
-            </button>
-          </form>
-        )}
+            Don&apos;t have an account? Sign up
+          </Link>
+        </div>
       </div>
     </div>
   );
