@@ -1,10 +1,10 @@
 import Link from "next/link";
-import Navbar from "@/components/Navbar";
+import LandingNavbar from "../components/LandingNavbar";
 
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground font-sans pt-20">
-      <Navbar />
+      <LandingNavbar />
       <main className="flex-1 flex flex-col items-center justify-center px-4 py-12">
         <section className="max-w-2xl w-full text-center mb-12">
           <h1 className="text-5xl font-extrabold mb-4 tracking-tight text-blue-700">
