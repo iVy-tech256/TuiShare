@@ -1,7 +1,8 @@
 "use client";
 import { useState } from "react";
-import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import Spinner from "@/components/Spinner";
+import Toast from "@/components/Toast";
 
 export default function StudentRegister() {
   const [form, setForm] = useState({
@@ -11,22 +12,40 @@ export default function StudentRegister() {
     schoolName: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [toast, setToast] = useState<{
+    message: string;
+    type?: "success" | "error";
+  } | null>(null);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    setToast(null);
+
+    // Simulate API call
+    setTimeout(() => {
+      setLoading(false);
+      setSubmitted(true);
+      setToast({
+        message: "Registration submitted successfully!",
+        type: "success",
+      });
+    }, 1500);
   }
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground font-sans p-8">
       <Navbar />
-
+      {toast && <Toast message={toast.message} type={toast.type} />}
       <h2 className="text-2xl font-bold mb-4">Student Registration</h2>
-      {submitted ? (
+      {loading ? (
+        <Spinner />
+      ) : submitted ? (
         <div className="bg-green-100 text-green-800 p-4 rounded mb-4">
           Registration submitted! We will contact you soon.
         </div>
@@ -74,8 +93,9 @@ export default function StudentRegister() {
           <button
             type="submit"
             className="py-3 px-6 rounded bg-green-600 text-white font-semibold hover:bg-green-700 transition"
+            disabled={loading}
           >
-            Register
+            {loading ? "Submitting..." : "Register"}
           </button>
         </form>
       )}
