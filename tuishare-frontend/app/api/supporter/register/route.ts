@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
-  const data = await request.json();
+  await request.json(); // Read and ignore for now
   // TODO: Save supporter registration data to database
   return NextResponse.json({
     success: true,

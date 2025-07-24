@@ -27,15 +27,27 @@ export default function SupporterRegister() {
     setLoading(true);
     setToast(null);
 
-    // Simulate API call
-    setTimeout(() => {
-      setLoading(false);
-      setSubmitted(true);
-      setToast({
-        message: "Registration submitted successfully!",
-        type: "success",
+    try {
+      const res = await fetch("/api/supporter/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
       });
-    }, 1500);
+      const result = await res.json();
+      if (result.success) {
+        setSubmitted(true);
+        setToast({ message: result.message, type: "success" });
+      } else {
+        setToast({
+          message: result.message || "Registration failed.",
+          type: "error",
+        });
+      }
+    } catch {
+      setToast({ message: "Network error. Please try again.", type: "error" });
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -43,7 +55,7 @@ export default function SupporterRegister() {
       <Navbar />
       <div className="flex-1 flex flex-col items-center justify-center px-4 py-8">
         {toast && <Toast message={toast.message} type={toast.type} />}
-        <div className="w-full max-w-lg bg-white rounded-lg shadow-lg p-8">
+        <div className="w-full max-w-xl bg-white rounded-lg shadow-lg p-12">
           <h2 className="text-3xl font-bold mb-4 text-center text-blue-600">
             Supporter Registration
           </h2>
