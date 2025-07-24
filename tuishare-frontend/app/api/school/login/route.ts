@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongoose";
 import School from "@/models/School";
+import bcrypt from "bcryptjs";
 
 export async function POST(request: Request) {
   await connectDB();
@@ -21,7 +22,14 @@ export async function POST(request: Request) {
     });
   }
 
-  // TODO: Add password check when you implement authentication
+  const isMatch = await bcrypt.compare(password, school.password);
+  if (!isMatch) {
+    return NextResponse.json({
+      success: false,
+      message: "Incorrect password.",
+    });
+  }
+
   return NextResponse.json({
     success: true,
     message: "Login successful!",
