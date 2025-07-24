@@ -1,5 +1,7 @@
+"use client";
+
 import Link from "next/link";
-import LandingNavbar from "../components/LandingNavbar";
+import LandingNavbar from "@/components/LandingNavbar"; // Fixed import path
 
 export default function Home() {
   return (

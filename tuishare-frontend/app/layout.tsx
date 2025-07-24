@@ -28,6 +28,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        {/* Fix: SessionProvider must wrap a single child, so use a fragment */}
         <SessionProvider>{children}</SessionProvider>
       </body>
     </html>

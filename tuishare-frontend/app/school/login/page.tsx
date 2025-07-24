@@ -38,15 +38,17 @@ export default function SchoolLogin() {
       const result = await res.json();
       if (result.success) {
         setToast({ message: result.message, type: "success" });
-        setForm({ email: "", password: "" });
+        setForm({ email: "", password: "" }); // Reset form fields
         setTimeout(() => {
           router.push("/school/dashboard");
         }, 1000);
       } else {
         setToast({ message: result.message || "Login failed.", type: "error" });
+        setForm({ ...form, password: "" }); // Clear only password field on error
       }
     } catch {
       setToast({ message: "Network error. Please try again.", type: "error" });
+      setForm({ ...form, password: "" }); // Clear only password field on error
     } finally {
       setLoading(false);
     }
@@ -73,6 +75,7 @@ export default function SchoolLogin() {
                 value={form.email}
                 onChange={handleChange}
                 required
+                autoComplete="email"
               />
               <div className="relative">
                 <input
@@ -83,12 +86,14 @@ export default function SchoolLogin() {
                   value={form.password}
                   onChange={handleChange}
                   required
+                  autoComplete="current-password"
                 />
                 <button
                   type="button"
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
                   onClick={togglePassword}
                   tabIndex={-1}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? (
                     <span aria-label="Hide password">&#128065;</span>

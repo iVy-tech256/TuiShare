@@ -1,6 +1,14 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, Document, Model } from "mongoose";
 
-const StudentSchema = new Schema({
+export interface IStudent extends Document {
+  fullName: string;
+  email: string;
+  schoolId: string;
+  schoolName: string;
+  password: string;
+}
+
+const StudentSchema: Schema = new Schema({
   fullName: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   schoolId: { type: String, required: true },
@@ -8,5 +16,6 @@ const StudentSchema = new Schema({
   password: { type: String, required: true },
 });
 
-export default mongoose.models.Student ||
-  mongoose.model("Student", StudentSchema);
+// Prevent model overwrite issues in Next.js
+export default (mongoose.models.Student as Model<IStudent>) ||
+  mongoose.model<IStudent>("Student", StudentSchema);
