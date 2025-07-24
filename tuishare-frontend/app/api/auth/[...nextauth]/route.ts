@@ -28,7 +28,7 @@ const handler = NextAuth({
         const { type, email, password } = credentials as Record<string, string>;
         if (!type || !email || !password) return null;
         const user = await getUser(type, email);
-        if (!user || !user.password) return null;
+        if (!user || typeof user.password !== "string") return null;
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return null;
         // Return user object for session
@@ -59,7 +59,7 @@ const handler = NextAuth({
     },
     async session({ session, token }) {
       // Defensive: ensure session.user exists
-      if (!session.user) session.user = {};
+      session.user = session.user || {};
       if (token) {
         session.user.id =
           typeof token.id === "string" ? token.id : token.id?.toString();
