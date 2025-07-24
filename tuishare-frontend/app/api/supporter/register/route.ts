@@ -1,12 +1,13 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongoose";
 import Supporter from "@/models/Supporter";
+import bcrypt from "bcryptjs";
 
 export async function POST(request: Request) {
   await connectDB();
-  const { name, email, country } = await request.json();
+  const { name, email, country, password } = await request.json();
 
-  if (!name || !email || !country) {
+  if (!name || !email || !country || !password) {
     return NextResponse.json({
       success: false,
       message: "All fields are required.",
@@ -22,10 +23,13 @@ export async function POST(request: Request) {
     });
   }
 
+  const hashedPassword = await bcrypt.hash(password, 10);
+
   await Supporter.create({
     name,
     email,
     country,
+    password: hashedPassword,
   });
 
   return NextResponse.json({

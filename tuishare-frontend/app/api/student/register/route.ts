@@ -1,19 +1,20 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongoose";
 import Student from "@/models/Student";
+import bcrypt from "bcryptjs";
 
 export async function POST(request: Request) {
   await connectDB();
-  const { fullName, email, schoolId, schoolName } = await request.json();
+  const { fullName, email, schoolId, schoolName, password } =
+    await request.json();
 
-  if (!fullName || !email || !schoolId || !schoolName) {
+  if (!fullName || !email || !schoolId || !schoolName || !password) {
     return NextResponse.json({
       success: false,
       message: "All fields are required.",
     });
   }
 
-  // Check for unique email
   const exists = await Student.findOne({ email });
   if (exists) {
     return NextResponse.json({
@@ -22,11 +23,14 @@ export async function POST(request: Request) {
     });
   }
 
+  const hashedPassword = await bcrypt.hash(password, 10);
+
   await Student.create({
     fullName,
     email,
     schoolId,
     schoolName,
+    password: hashedPassword,
   });
 
   return NextResponse.json({
