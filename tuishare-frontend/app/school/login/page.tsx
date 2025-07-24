@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Spinner from "@/components/Spinner";
 import Toast from "@/components/Toast";
@@ -12,6 +13,7 @@ export default function SchoolLogin() {
     message: string;
     type?: "success" | "error";
   } | null>(null);
+  const router = useRouter();
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -31,7 +33,9 @@ export default function SchoolLogin() {
       const result = await res.json();
       if (result.success) {
         setToast({ message: result.message, type: "success" });
-        // TODO: Redirect to dashboard after successful login
+        setTimeout(() => {
+          router.push("/school/dashboard");
+        }, 1000);
       } else {
         setToast({ message: result.message || "Login failed.", type: "error" });
       }
