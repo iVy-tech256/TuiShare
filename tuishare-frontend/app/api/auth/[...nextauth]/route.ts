@@ -13,6 +13,24 @@ const getUser = async (type: string, email: string) => {
   return null;
 };
 
+declare module "next-auth" {
+  interface User {
+    type?: string;
+    name?: string;
+    id?: string;
+    email?: string;
+  }
+  interface Session {
+    user: {
+      name?: string | null;
+      email?: string | null;
+      image?: string | null;
+      type?: string;
+      id?: string;
+    };
+  }
+}
+
 const handler = NextAuth({
   providers: [
     CredentialsProvider({
@@ -24,7 +42,12 @@ const handler = NextAuth({
       },
       async authorize(credentials) {
         await connectDB();
-        const { type, email, password } = credentials as any;
+        type Credentials = {
+          type: string;
+          email: string;
+          password: string;
+        };
+        const { type, email, password } = credentials as Credentials;
         const user = await getUser(type, email);
         if (!user) return null;
         const isMatch = await bcrypt.compare(password, user.password);
@@ -55,10 +78,13 @@ const handler = NextAuth({
       return token;
     },
     async session({ session, token }) {
+      // Defensive: ensure session.user exists
+      session.user = session.user || {};
       if (token) {
-        session.user.id = token.id;
-        session.user.type = token.type;
-        session.user.name = token.name;
+        session.user.id =
+          typeof token.id === "string" ? token.id : token.id?.toString();
+        session.user.type = token.type as string | undefined;
+        session.user.name = token.name as string | undefined;
       }
       return session;
     },

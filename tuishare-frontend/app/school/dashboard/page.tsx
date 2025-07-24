@@ -6,7 +6,7 @@ export default function SchoolDashboard() {
   const { data: session, status } = useSession();
 
   if (status === "loading") return <div>Loading...</div>;
-  if (!session)
+  if (!session || !session.user)
     return (
       <div className="flex flex-col items-center justify-center min-h-screen">
         <p className="mb-4">You must be signed in to view this page.</p>
@@ -19,17 +19,11 @@ export default function SchoolDashboard() {
       </div>
     );
 
-  function handleSignOut() {
-    // TODO: Add sign out logic here (e.g., clear auth, redirect)
-    window.location.href = "/";
-  }
-
   return (
     <div className="min-h-screen bg-background text-foreground font-sans pt-20 flex flex-col items-center">
       <div className="w-full max-w-5xl relative">
-        {/* Sign Out Button */}
         <button
-          onClick={handleSignOut}
+          onClick={() => signOut()}
           className="absolute top-0 right-0 mt-4 mr-4 py-2 px-6 rounded bg-yellow-500 text-white font-semibold hover:bg-yellow-600 transition shadow"
         >
           Sign Out

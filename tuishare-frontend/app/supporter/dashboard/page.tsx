@@ -5,7 +5,7 @@ export default function SupporterDashboard() {
   const { data: session, status } = useSession();
 
   if (status === "loading") return <div>Loading...</div>;
-  if (!session)
+  if (!session || !session.user)
     return (
       <div className="flex flex-col items-center justify-center min-h-screen">
         <p className="mb-4">You must be signed in to view this page.</p>
@@ -20,7 +20,6 @@ export default function SupporterDashboard() {
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans pt-20 flex flex-col items-center">
-      {/* Top bar for Sign Out */}
       <div className="w-full max-w-4xl flex justify-end mb-4">
         <button
           onClick={() => signOut()}
