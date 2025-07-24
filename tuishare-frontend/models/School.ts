@@ -5,6 +5,7 @@ const SchoolSchema = new Schema({
   schoolEmail: { type: String, required: true, unique: true },
   schoolAddress: { type: String, required: true },
   contactPerson: { type: String, required: true },
+  password: { type: String, required: true },
 });
 
 export default mongoose.models.School || mongoose.model("School", SchoolSchema);

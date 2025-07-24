@@ -5,6 +5,7 @@ const StudentSchema = new Schema({
   email: { type: String, required: true, unique: true },
   schoolId: { type: String, required: true },
   schoolName: { type: String, required: true },
+  password: { type: String, required: true },
 });
 
 export default mongoose.models.Student ||
