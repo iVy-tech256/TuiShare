@@ -43,11 +43,9 @@ export default function SupporterLogin() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground font-sans">
-      <div className="sticky top-0 z-50">
-        <Navbar />
-      </div>
-      <div className="flex-1 flex flex-col items-center justify-center p-8">
+    <div className="min-h-screen flex flex-col bg-background text-foreground font-sans pt-20">
+      <Navbar />
+      <div className="flex-1 flex flex-col items-center justify-center px-4 py-8">
         {toast && <Toast message={toast.message} type={toast.type} />}
         <div className="w-full max-w-xl bg-white rounded-lg shadow p-12">
           <h2 className="text-3xl font-bold mb-4 text-center text-blue-600">
