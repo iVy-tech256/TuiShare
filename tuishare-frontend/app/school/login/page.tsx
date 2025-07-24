@@ -8,6 +8,7 @@ import Link from "next/link";
 
 export default function SchoolLogin() {
   const [form, setForm] = useState({ email: "", password: "" });
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState<{
     message: string;
@@ -17,6 +18,10 @@ export default function SchoolLogin() {
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setForm({ ...form, [e.target.name]: e.target.value });
+  }
+
+  function togglePassword() {
+    setShowPassword((prev) => !prev);
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -69,15 +74,29 @@ export default function SchoolLogin() {
                 onChange={handleChange}
                 required
               />
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                className="border p-3 rounded w-full"
-                value={form.password}
-                onChange={handleChange}
-                required
-              />
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  placeholder="Password"
+                  className="border p-3 rounded w-full pr-10"
+                  value={form.password}
+                  onChange={handleChange}
+                  required
+                />
+                <button
+                  type="button"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
+                  onClick={togglePassword}
+                  tabIndex={-1}
+                >
+                  {showPassword ? (
+                    <span aria-label="Hide password">&#128065;</span>
+                  ) : (
+                    <span aria-label="Show password">&#128064;</span>
+                  )}
+                </button>
+              </div>
               <button
                 type="submit"
                 className="py-3 px-6 rounded bg-yellow-500 text-white font-semibold hover:bg-yellow-600 transition w-full"
