@@ -1,17 +1,29 @@
 "use client";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 export default function SupporterDashboard() {
-  function handleSignOut() {
-    // TODO: Add sign out logic here (e.g., clear auth, redirect)
-    window.location.href = "/";
-  }
+  const { data: session, status } = useSession();
+
+  if (status === "loading") return <div>Loading...</div>;
+  if (!session)
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen">
+        <p className="mb-4">You must be signed in to view this page.</p>
+        <button
+          className="py-2 px-6 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700"
+          onClick={() => signIn()}
+        >
+          Sign In
+        </button>
+      </div>
+    );
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans pt-20 flex flex-col items-center">
       {/* Top bar for Sign Out */}
       <div className="w-full max-w-4xl flex justify-end mb-4">
         <button
-          onClick={handleSignOut}
+          onClick={() => signOut()}
           className="py-2 px-6 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700 transition shadow"
         >
           Sign Out

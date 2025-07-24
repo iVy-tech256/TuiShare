@@ -1,7 +1,24 @@
 "use client";
 import Link from "next/link";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 export default function SchoolDashboard() {
+  const { data: session, status } = useSession();
+
+  if (status === "loading") return <div>Loading...</div>;
+  if (!session)
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen">
+        <p className="mb-4">You must be signed in to view this page.</p>
+        <button
+          className="py-2 px-6 rounded bg-yellow-500 text-white font-semibold hover:bg-yellow-600"
+          onClick={() => signIn()}
+        >
+          Sign In
+        </button>
+      </div>
+    );
+
   function handleSignOut() {
     // TODO: Add sign out logic here (e.g., clear auth, redirect)
     window.location.href = "/";
