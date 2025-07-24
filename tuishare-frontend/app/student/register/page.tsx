@@ -11,7 +11,9 @@ export default function StudentRegister() {
     email: "",
     schoolId: "",
     schoolName: "",
+    password: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState<{
@@ -21,6 +23,10 @@ export default function StudentRegister() {
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setForm({ ...form, [e.target.name]: e.target.value });
+  }
+
+  function togglePassword() {
+    setShowPassword((prev) => !prev);
   }
 
   function validateEmail(email: string) {
@@ -54,6 +60,7 @@ export default function StudentRegister() {
           email: "",
           schoolId: "",
           schoolName: "",
+          password: "",
         });
       } else {
         setToast({
@@ -125,6 +132,29 @@ export default function StudentRegister() {
                 onChange={handleChange}
                 required
               />
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  placeholder="Password"
+                  className="border p-3 rounded w-full pr-10"
+                  value={form.password}
+                  onChange={handleChange}
+                  required
+                />
+                <button
+                  type="button"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
+                  onClick={togglePassword}
+                  tabIndex={-1}
+                >
+                  {showPassword ? (
+                    <span aria-label="Hide password">&#128065;</span>
+                  ) : (
+                    <span aria-label="Show password">&#128064;</span>
+                  )}
+                </button>
+              </div>
               <button
                 type="submit"
                 className="py-3 px-6 rounded bg-green-600 text-white font-semibold hover:bg-green-700 transition w-full"
