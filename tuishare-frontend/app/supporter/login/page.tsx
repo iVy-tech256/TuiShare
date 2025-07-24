@@ -22,12 +22,24 @@ export default function SupporterLogin() {
     setLoading(true);
     setToast(null);
 
-    // Simulate login API call
-    setTimeout(() => {
+    try {
+      const res = await fetch("/api/supporter/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const result = await res.json();
+      if (result.success) {
+        setToast({ message: result.message, type: "success" });
+        // TODO: Redirect to dashboard after successful login
+      } else {
+        setToast({ message: result.message || "Login failed.", type: "error" });
+      }
+    } catch {
+      setToast({ message: "Network error. Please try again.", type: "error" });
+    } finally {
       setLoading(false);
-      setToast({ message: "Login successful!", type: "success" });
-      // TODO: Redirect to dashboard after successful login
-    }, 1200);
+    }
   }
 
   return (
