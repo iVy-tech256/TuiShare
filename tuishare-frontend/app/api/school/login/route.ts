@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-
-// Simulated in-memory database
-const schools: { email: string }[] = [];
+import { connectDB } from "@/lib/mongoose";
+import School from "@/models/School";
 
 export async function POST(request: Request) {
+  await connectDB();
   const { email, password } = await request.json();
 
   if (!email || !password) {
@@ -13,12 +13,17 @@ export async function POST(request: Request) {
     });
   }
 
-  if (!schools.some((s) => s.email === email)) {
+  const school = await School.findOne({ schoolEmail: email });
+  if (!school) {
     return NextResponse.json({
       success: false,
       message: "No account found. Please sign up first.",
     });
   }
 
-  return NextResponse.json({ success: true, message: "Login successful!" });
+  // TODO: Add password check when you implement authentication
+  return NextResponse.json({
+    success: true,
+    message: "Login successful!",
+  });
 }
