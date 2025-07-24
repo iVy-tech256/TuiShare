@@ -33,6 +33,7 @@ export default function SupporterLogin() {
       const result = await res.json();
       if (result.success) {
         setToast({ message: result.message, type: "success" });
+        setForm({ email: "", password: "" });
         setTimeout(() => {
           router.push("/supporter/dashboard");
         }, 1000);

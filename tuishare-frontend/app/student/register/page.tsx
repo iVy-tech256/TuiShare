@@ -23,8 +23,19 @@ export default function StudentRegister() {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
 
+  function validateEmail(email: string) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (!validateEmail(form.email)) {
+      setToast({
+        message: "Please enter a valid email address.",
+        type: "error",
+      });
+      return;
+    }
     setLoading(true);
     setToast(null);
 
@@ -38,6 +49,12 @@ export default function StudentRegister() {
       if (result.success) {
         setSubmitted(true);
         setToast({ message: result.message, type: "success" });
+        setForm({
+          fullName: "",
+          email: "",
+          schoolId: "",
+          schoolName: "",
+        });
       } else {
         setToast({
           message: result.message || "Registration failed.",
