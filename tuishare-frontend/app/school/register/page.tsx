@@ -28,15 +28,27 @@ export default function SchoolRegister() {
     setLoading(true);
     setToast(null);
 
-    // Simulate API call
-    setTimeout(() => {
-      setLoading(false);
-      setSubmitted(true);
-      setToast({
-        message: "School registration submitted successfully!",
-        type: "success",
+    try {
+      const res = await fetch("/api/school/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
       });
-    }, 1500);
+      const result = await res.json();
+      if (result.success) {
+        setSubmitted(true);
+        setToast({ message: result.message, type: "success" });
+      } else {
+        setToast({
+          message: result.message || "Registration failed.",
+          type: "error",
+        });
+      }
+    } catch {
+      setToast({ message: "Network error. Please try again.", type: "error" });
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
