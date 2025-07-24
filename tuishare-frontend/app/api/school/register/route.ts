@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-
-// Simulated in-memory database
-const schools: { email: string }[] = [];
+import { connectDB } from "@/lib/mongoose";
+import School from "@/models/School";
 
 export async function POST(request: Request) {
+  await connectDB();
   const { schoolName, schoolEmail, schoolAddress, contactPerson } =
     await request.json();
 
@@ -14,14 +14,21 @@ export async function POST(request: Request) {
     });
   }
 
-  if (schools.some((s) => s.email === schoolEmail)) {
+  // Check for unique email
+  const exists = await School.findOne({ schoolEmail });
+  if (exists) {
     return NextResponse.json({
       success: false,
       message: "Email already exists. Please use another email.",
     });
   }
 
-  schools.push({ email: schoolEmail });
+  await School.create({
+    schoolName,
+    schoolEmail,
+    schoolAddress,
+    contactPerson,
+  });
 
   return NextResponse.json({
     success: true,
